@@ -39,6 +39,10 @@ Note that you should also [enable subpages](https://www.mediawiki.org/wiki/Manua
   Boolean, whether or not the subpage form should be shown. Defaults to `true`.
 * `$wgAttachmentsShowLinkForm`  
   Boolean, whether or not the external link form should be shown. Defaults to `true`.
+* `$wgAttachmentsShowInNamespaces`
+  Boolean, whether or not an button should be shown in the namespaces (page, discussion) Defaults to `true`.
+* `$wgAttachmentsShowInViews`
+  Boolean, whether or not an button should be shown in the views (read, edit source, view history). Defaults to `true`.
 
 ## Credits
 

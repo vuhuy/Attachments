@@ -31,7 +31,7 @@ class Attachments {
 	}
 
 	public static function hasExtURL($title){
-		return !empty(PageProps::getInstance()->getProperties($title, self::PROP_URL));
+		return !empty(MediaWikiServices::getInstance()->getPageProps()->getProperties($title, self::PROP_URL));
 	}
 
 	public static function getAttachPropname($title){
@@ -45,7 +45,8 @@ class Attachments {
 	}
 
 	public static function getFiles($title, $count = FALSE){
-		$dbr = wfGetDB(DB_REPLICA);
+		$dbProvider = MediaWikiServices::getInstance()->getConnectionProvider();
+		$dbr = $dbProvider->getReplicaDatabase();
 		$res = $dbr->select(
 			['page_props', 'page'],
 			$count ? ['count'=>'count(*)'] : ['page_title'],
@@ -65,12 +66,13 @@ class Attachments {
 	}
 
 	public static function getPages(Title $title, $count = FALSE){
-		$dbr = wfGetDB(DB_REPLICA);
+		$dbProvider = MediaWikiServices::getInstance()->getConnectionProvider();
+		$dbr = $dbProvider->getReplicaDatabase();
 		$subpageCond = [
 			'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
 			'page_namespace'=>$title->getNamespace()
 		];
-		foreach (PageProps::getInstance()->getProperties($title, self::PROP_IGNORE_SUBPAGES) as $id => $pattern){
+		foreach (MediaWikiServices::getInstance()->getPageProps()->getProperties($title, self::PROP_IGNORE_SUBPAGES) as $id => $pattern){
 			$subpageCond[] = 'page_title NOT '.$dbr->buildLike($title->getDBKey() . '/' . $pattern, $dbr->anyString());
 		}
 
@@ -154,7 +156,7 @@ class Attachments {
 		if (count($links) == 0){
 			return $context->msg('attachments-add-first', $linkRenderer->makeKnownLink($title, $context->msg('attachments-add-first-link'), [], ['action'=>'attach']))->text();
 		} else {
-			if (Hooks::run('BeforeSortAttachments', [&$links]))
+			if (MediaWikiServices::getInstance()->getHookContainer()->run('BeforeSortAttachments', [&$links]))
 				ksort($links);
 
 			$articles_start_char = [];
@@ -175,7 +177,7 @@ class Attachments {
 			} else {
 				$listHTML = '<ul><li>' . implode( "</li>\n<li>", $articles ) . '</li></ul>';
 			}
-			return $linkRenderer->makeKnownLink($title, $context->msg('attachments-add-new'), [], ['action'=>'attach'])
+			return $context->msg('attachments-add-new', count($articles), $linkRenderer->makeKnownLink($title, $context->msg('attachments-add-new-link'), [], ['action'=>'attach']))->text()
 				. $listHTML;
 		}
 	}

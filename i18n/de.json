@@ -1,9 +1,10 @@
 {
 	"attachments": "Anhänge",
 	"attachments-desc": "Hänge Dateien und Links an Seiten an.",
-	"attachments-verb": "Anhängen",
+	"attachments-verb": "Anhang hinzufügen",
 
-	"attachments-add-new": "Neuen Anhang hinzufügen",
+	"attachments-add-new": "Diese Seite enthält $1 Anhang/Anhänge. $2.",
+    "attachments-add-new-link": "Fügen Sie einen neuen Anhang hinzu",
 	"attachments-add-first": "Diese Seite hat noch keine Anhänge, du kannst aber $1.",
 	"attachments-add-first-link": "neue hinzufügen",
 
@@ -12,7 +13,7 @@
 	"attach-articleexists": "Unter diesem Namen existiert bereits [[$1|eine Seite]].",
 
 	"attach-addsubpage-heading": "Unterseite hinzufügen",
-	"attach-addsubpage-text": "Wikiseiten können leicht gemeinschaftlich bearbeitet werden.",
+	"attach-addsubpage-text": "Unterseiten ermöglichen ein wenig hierarchische Organisation für Wikiseiten. Die Ebenen der Hierarchie werden durch Schrägstriche getrennt.",
 	"attach-addsubpage-label": "Name der Unterseite",
 	"attach-addsubpage-action": "Erstelle Unterseite",
 
@@ -20,6 +21,7 @@
 	"attach-upload-category": "Angehängte Dateien",
 
 	"attach-addlink-heading": "Link hinzufügen",
+	"attach-addlink-text": "Externe URL als Anhang hinzufügen.",
 	"attach-addlink-title": "Titel",
 	"attach-addlink-action": "Link hinzufügen",
 	"attach-addlink-editmsg": "erstelle externen Link",
@@ -27,5 +29,6 @@
 	"attached-to": "angehängt an",
 	"attachments-invalid-url": "ungültige URL",
 	"attachments-exturl-twice": "exturl wurde bereits gesetzt",
+	"attachments-category-attached-files": "Seiten mit Anhängen",
 	"attachments-category-exturl-error": "Seiten mit exturl Fehlern"
 }

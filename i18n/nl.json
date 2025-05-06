@@ -1,0 +1,36 @@
+{
+	"attachments": "Bijlagen",
+	"attachments-desc": "Bestanden en links aan pagina's toevoegen.",
+	"attachments-verb": "Bijlage toevoegen",
+
+	"attachments-add-new": "Deze pagina bevat $1 bijlage(n). $2.",
+    "attachments-add-new-link": "Voeg een nieuwe bijlage toe",
+	"attachments-add-first": "Deze pagina heeft nog geen bijlagen, maar je kunt er $1.",
+	"attachments-add-first-link": "één toevoegen",
+
+	"attach-page": "Bijlage toevoegen aan \"$1\"",
+	"attach-text": "",
+	"attach-invalidtitle": "ongeldige naam",
+	"attach-articleexists": "Een pagina met de naam [[$1|bestaat al]].",
+
+	"attach-addsubpage-heading": "Subpagina toevoegen",
+	"attach-addsubpage-text": "Subpagina's introduceren een hiërarchische organisatie in wiki-pagina's, met niveaus van de hiërarchie gescheiden door schuine strepen.",
+	"attach-addsubpage-label": "Naam van subpagina",
+	"attach-addsubpage-action": "Subpagina aanmaken",
+
+	"attach-upload-heading": "Bestand uploaden",
+	"attach-upload-category": "Bijlagen",
+
+	"attach-addlink-heading": "Link toevoegen",
+	"attach-addlink-text": "Externe URL als bijlage toevoegen.",
+	"attach-addlink-title": "Titel",
+	"attach-addlink-url": "URL",
+	"attach-addlink-action": "Link toevoegen",
+	"attach-addlink-editmsg": "externe link aanmaken",
+
+	"attached-to": "toegevoegd aan",
+	"attachments-invalid-url": "ongeldige URL",
+	"attachments-exturl-twice": "exturl is al ingesteld",
+    "attachments-category-attached-files": "Pagina's met bijlagen",
+	"attachments-category-exturl-error": "Pagina's met exturl-fouten"
+}

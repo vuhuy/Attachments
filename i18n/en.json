@@ -1,9 +1,10 @@
 {
 	"attachments": "Attachments",
 	"attachments-desc": "Attach files and links to pages.",
-	"attachments-verb": "Attach",
+	"attachments-verb": "Add attachment",
 
-	"attachments-add-new": "Add new attachment",
+	"attachments-add-new": "This page contains $1 attachment(s). $2.",
+    "attachments-add-new-link": "Add a new attachment",
 	"attachments-add-first": "This page has no attachments yet but you can $1.",
 	"attachments-add-first-link": "add some",
 
@@ -13,7 +14,7 @@
 	"attach-articleexists": "A page of that name [[$1|already exists]].",
 
 	"attach-addsubpage-heading": "Add subpage",
-	"attach-addsubpage-text": "Wiki pages can easily be edited collaboratively.",
+	"attach-addsubpage-text": "Subpages introduce some hierarchical organization into wiki pages, with levels of the hierarchy separated by slashes.",
 	"attach-addsubpage-label": "Name of subpage",
 	"attach-addsubpage-action": "Create subpage",
 
@@ -21,7 +22,7 @@
 	"attach-upload-category": "Attached files",
 
 	"attach-addlink-heading": "Add link",
-	"attach-addlink-text": "",
+	"attach-addlink-text": "Add an external URL as attachment.",
 	"attach-addlink-title": "Title",
 	"attach-addlink-url": "URL",
 	"attach-addlink-action": "Add link",
@@ -30,5 +31,6 @@
 	"attached-to": "attached to",
 	"attachments-invalid-url": "invalid URL",
 	"attachments-exturl-twice": "exturl was already set",
+	"attachments-category-attached-files": "Pages with attachments",
 	"attachments-category-exturl-error": "Pages with exturl errors"
 }

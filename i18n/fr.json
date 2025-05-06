@@ -1,11 +1,12 @@
 {
 	"attachments": "Pièces jointes",
 	"attachments-desc": "Joignez des fichiers et des liens aux pages.",
-	"attachments-verb": "Joindre",
+	"attachments-verb": "Ajouter une pièce jointe",
 
-	"attachments-add-new": "Ajouter une nouvelle pièce jointe",
+	"attachments-add-new": "Cette page contient $1 pièce(s) jointe(s). $2.",
+    "attachments-add-new-link": "Ajoutez une nouvelle pièce jointe",
 	"attachments-add-first": "Cette page n'a pas encore de pièces jointes mais vous pouvez $1.",
-	"attachments-add-first-link": "en ajouter",
+	"attachments-add-first-link": "Ajouter une pièce jointe",
 
 	"attach-page": "Joindre à \"$1\"",
 	"attach-text": "",
@@ -13,7 +14,7 @@
 	"attach-articleexists": "Une page de ce nom [[$1|existe déjà]].",
 
 	"attach-addsubpage-heading": "Ajouter une sous-page",
-	"attach-addsubpage-text": "Les pages Wiki peuvent facilement être éditées en collaboration.",
+	"attach-addsubpage-text": "Les sous-pages établissent une organisation hiérarchique des pages du wiki. Les niveaux hiérarchiques sont séparés par des barres obliques avant.",
 	"attach-addsubpage-label": "Nom de la sous-page",
 	"attach-addsubpage-action": "Créer une sous-page",
 
@@ -21,7 +22,7 @@
 	"attach-upload-category": "Fichiers joints",
 
 	"attach-addlink-heading": "Ajouter un lien",
-	"attach-addlink-text": "",
+	"attach-addlink-text": "Ajouter une URL externe en pièce jointe.",
 	"attach-addlink-title": "Titre",
 	"attach-addlink-url": "URL",
 	"attach-addlink-action": "Ajouter un lien",
@@ -30,5 +31,6 @@
 	"attached-to": "attaché à",
 	"attachments-invalid-url": "URL invalide",
 	"attachments-exturl-twice": "exturl a déjà été défini",
+	"attachments-category-attached-files": "Pages avec pièces jointes",
 	"attachments-category-exturl-error": "Pages avec des erreurs exturl"
 }

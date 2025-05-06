@@ -38,9 +38,6 @@ class SpecialAttach extends SpecialUpload {
 		global $wgAttachmentsShowSubpageForm, $wgAttachmentsShowLinkForm;
 		$out = $this->getOutput();
 
-		if ($wgAttachmentsShowSubpageForm)
-			(new SubpageForm($this->getContext()))->show();
-
 		# hiding prefix using a hack to circumvent protected scope
 		(function ($outer){
 			$this->mDefault = substr($this->mDefault, strlen($outer->prefix));
@@ -54,6 +51,9 @@ class SpecialAttach extends SpecialUpload {
 
 		# the JavaScript doesn't know about the prefix we add
 		$out->addJsConfigVars(['wgAjaxUploadDestCheck'=>false]);
+
+		if ($wgAttachmentsShowSubpageForm)
+			(new SubpageForm($this->getContext()))->show();
 
 		if ($wgAttachmentsShowLinkForm)
 			(new LinkForm($this->getContext()))->show();
@@ -80,8 +80,8 @@ class SubpageForm extends HTMLForm {
 		$this->setFormIdentifier('add-subpage');
 		$this->setSubmitText($this->msg('attach-addsubpage-action'));
 		$this->setAutocomplete('off');
-		$this->addPreText('<h2>'.$this->msg('attach-addsubpage-heading')->escaped().'</h2>');
-		$this->addPreText($this->msg('attach-addsubpage-text')->parseAsBlock());
+		$this->addPreHtml('<h2>'.$this->msg('attach-addsubpage-heading')->escaped().'</h2>');
+		$this->addPreHtml($this->msg('attach-addsubpage-text')->parseAsBlock());
 		$this->setAction($this->getTitle()->getFullURL(['action'=>'attach']));
 	}
 
@@ -106,7 +106,7 @@ class SubpageForm extends HTMLForm {
 	}
 }
 
-class  LinkForm extends HTMLForm {
+class LinkForm extends HTMLForm {
 	function __construct($context) {
 		parent::__construct([
 			'Subpage' => [
@@ -124,8 +124,8 @@ class  LinkForm extends HTMLForm {
 		$this->setSubmitCallback([$this, 'submit']);
 		$this->setFormIdentifier('add-link');
 		$this->setSubmitText($this->msg('attach-addlink-action'));
-		$this->addPreText('<h2>'.$this->msg('attach-addlink-heading')->escaped().'</h2>');
-		$this->addPreText($this->msg('attach-addlink-text')->parseAsBlock());
+		$this->addPreHtml('<h2>'.$this->msg('attach-addlink-heading')->escaped().'</h2>');
+		$this->addPreHtml($this->msg('attach-addlink-text')->parseAsBlock());
 		$this->setAutocomplete('off');
 		$this->setAction($this->getTitle()->getFullURL(['action'=>'attach']));
 	}
@@ -137,11 +137,16 @@ class  LinkForm extends HTMLForm {
 		if (!empty($permissionErrors)) {
 			return $permissionErrors;
 		}
-		$status = WikiPage::factory(
-			$title->getSubpage(Title::capitalize($data['Subpage']))
-		)->doEditContent(
-			new WikitextContent("{{#exturl:${data['URL']}}}"),
-			$this->msg('attach-addlink-editmsg'), EDIT_NEW, false, null, null, ['attachments-add-exturl']
+		$page = MediaWikiServices::getInstance()
+			->getWikiPageFactory()
+			->newFromTitle($title->getSubpage(Title::capitalize($data['Subpage'])));
+		$status = $page->doUserEditContent(
+			new WikitextContent("{{#exturl:" . $data['URL'] . "}}"),
+			$this->getUser(),
+			$this->msg('attach-addlink-editmsg')->text(),
+			EDIT_NEW,
+			false,
+			['attachments-add-exturl']
 		);
 		$this->getOutput()->redirect($title->getFullURL());
 	}
