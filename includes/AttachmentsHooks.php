@@ -60,8 +60,10 @@ class AttachmentsHooks {
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		if (!Attachments::isViewingApplicablePage($out)) return true;
 
-		$title = $out->getTitle();
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
 
+		$title = $out->getTitle();
 		$pages = Attachments::getPages($title);
 		$files = Attachments::getFiles($title);
 		$html = Attachments::makeList($title, $pages, $files, $out->getContext());
@@ -69,7 +71,7 @@ class AttachmentsHooks {
 			'mediawiki.action.view.categoryPage.styles'
 		]);
 
-		if (count($pages)+count($files) > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title])){
+		if (count($pages)+count($files) > 0 || $attachmentsShowEmptySection){
 			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>"); # class for external link icon
 			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
 
@@ -90,9 +92,11 @@ class AttachmentsHooks {
 		if (!Attachments::isViewingApplicablePage($tpl->getSkin()) || Attachments::hasExtURL($tpl->getSkin()->getTitle()))
 			return;
 
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
 		$title = $tpl->getSkin()->getTitle();
 
-		if (Attachments::countAttachments($title) > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title]))
+		if (Attachments::countAttachments($title) > 0 || $attachmentsShowEmptySection)
 			$tpl->data['page_actions']['attachments'] = [
 				'itemtitle' => $tpl->msg('attachments'),
 				'href' => '#' . Sanitizer::escapeIdForAttribute($tpl->msg('attachments')),
@@ -107,16 +111,16 @@ class AttachmentsHooks {
 	}
 
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
-
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
 
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
+		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
 		$title = $sktemplate->getTitle();
 
 		$count = Attachments::countAttachments($title);
-		if ($count > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title]))
+		if ($count > 0 || $attachmentsShowEmptySection)
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
 					'text'=> $sktemplate->msg('attachments') . " ($count)",

@@ -56,6 +56,9 @@
 	},
 	"config": {
 		"AttachmentsNamespaces": {
+			"value": {
+				"0": true
+			},
 			"description": "The namespaces in which this extension should be enabled.",
 			"_merge_strategy": "array_plus"
 		},
@@ -69,15 +72,19 @@
 		},
 		"AttachmentsShowLinkForm": {
 			"value": true,
-			"description": "Boolean, whether or not the external link form should be shown. Defaults to true."
+			"description": "Boolean, whether or not a link to the attachments should be shown in the namespaces (page, discussion). Defaults to true."
 		},
 		"AttachmentsShowInNamespaces": {
 			"value": false,
-			"description": "Boolean, whether or not a button should be shown in the namespaces (page, discussion). Defaults to false."
+			"description": "Boolean, whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to false."
 		},
 		"AttachmentsShowInViews": {
 			"value": false,
 			"description": "Boolean, whether or not a button should be shown in the views (read, edit source, view history). Defaults to false."
+		},
+		"AttachmentsShowEmptySection": {
+			"value": false,
+			"description": "Boolean, whether or not to show certain elements when there are no attachments for a page. Defaults to true."
 		}
 	},
 	"ConfigRegistry": {
