@@ -117,7 +117,7 @@ class AttachmentsHooks {
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
 					'text'=> $sktemplate->msg('attachments') . " ($count)",
-					'href' => '#' . $sktemplate->msg('attachments')
+					'href' => '#ext-attachments'
 				]
 			] + array_slice($links['namespaces'], 1);
 		$links['views'] = array_slice($links['views'], 0, 2) + [
