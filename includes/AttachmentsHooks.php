@@ -107,6 +107,8 @@ class AttachmentsHooks {
 	}
 
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
+		global $wgAttachmentsShowInNamespaces, $wgAttachmentsShowInViews;
+
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
 
@@ -120,14 +122,19 @@ class AttachmentsHooks {
 					'href' => '#ext-attachments'
 				]
 			] + array_slice($links['namespaces'], 1);
-		$links['views'] = array_slice($links['views'], 0, 2) + [
-			'add_attachment' => [
-				'text'=> $sktemplate->msg('attachments-verb'),
-				'href' => $title->getLocalURL('action=attach'),
-				'class' => ''
-			]
-		] + array_slice($links['views'], 2);
-
+		if ($wgAttachmentsShowInViews)
+			$links['views'] = array_slice($links['views'], 0, 2) + [
+				'add_attachment' => [
+					'text'=> $sktemplate->msg('attachments-verb'),
+					'href' => $title->getLocalURL('action=attach'),
+					'class' => ''
+				]
+			] + array_slice($links['views'], 2);
+		$links['actions']['add_attachment'] = [
+			'text' => $sktemplate->msg('attachments-verb')->text(),
+			'href' => $title->getLocalURL(['action' => 'attach']),
+			'class' => ''
+		];
 		return true;
 	}
 

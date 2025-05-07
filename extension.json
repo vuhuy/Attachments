@@ -12,7 +12,9 @@
 		},
 		"AttachmentsChunkListByLetter": true,
 		"AttachmentsShowSubpageForm": true,
-		"AttachmentsShowLinkForm": true
+		"AttachmentsShowLinkForm": true,
+		"AttachmentsShowInNamespaces": true,
+		"AttachmentsShowInViews": true
 	},
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",

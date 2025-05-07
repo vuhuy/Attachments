@@ -38,9 +38,6 @@ class SpecialAttach extends SpecialUpload {
 		global $wgAttachmentsShowSubpageForm, $wgAttachmentsShowLinkForm;
 		$out = $this->getOutput();
 
-		if ($wgAttachmentsShowSubpageForm)
-			(new SubpageForm($this->getContext()))->show();
-
 		# hiding prefix using a hack to circumvent protected scope
 		(function ($outer){
 			$this->mDefault = substr($this->mDefault, strlen($outer->prefix));
@@ -54,6 +51,9 @@ class SpecialAttach extends SpecialUpload {
 
 		# the JavaScript doesn't know about the prefix we add
 		$out->addJsConfigVars(['wgAjaxUploadDestCheck'=>false]);
+
+		if ($wgAttachmentsShowSubpageForm)
+			(new SubpageForm($this->getContext()))->show();
 
 		if ($wgAttachmentsShowLinkForm)
 			(new LinkForm($this->getContext()))->show();
