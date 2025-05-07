@@ -13,8 +13,8 @@
 		"AttachmentsChunkListByLetter": true,
 		"AttachmentsShowSubpageForm": true,
 		"AttachmentsShowLinkForm": true,
-		"AttachmentsShowInNamespaces": true,
-		"AttachmentsShowInViews": true
+		"AttachmentsShowInNamespaces": false,
+		"AttachmentsShowInViews": false
 	},
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",
