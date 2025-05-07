@@ -19,8 +19,9 @@ class Attachments {
 	}
 
 	public static function mayHaveAttachments($title){
-		global $wgAttachmentsNamespaces;
-		return $title->canExist() && ($wgAttachmentsNamespaces[$title->getNamespace()] ?? false);
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsNamespaces = $config->get( 'AttachmentsNamespaces' );
+		return $title->canExist() && ($attachmentsNamespaces[$title->getNamespace()] ?? false);
 	}
 
 	public static function isViewingApplicablePage($ctx){
@@ -114,7 +115,8 @@ class Attachments {
 	}
 
 	public static function makeList(Title $title, $pages, $files, $context) {
-		global $wgAttachmentsChunkListByLetter;
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsChunkListByLetter = $config->get( 'AttachmentsChunkListByLetter' );
 		$links = [];
 
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
@@ -166,7 +168,7 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			if ($wgAttachmentsChunkListByLetter) {
+			if ($attachmentsChunkListByLetter) {
 				// Both columnList and shortList chunk the list items by their first letter.
 				// Like MediaWiki categories we only use the three-column format if there are more than 6 items.
 				if (count($articles) > 6) {

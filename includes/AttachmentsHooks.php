@@ -10,7 +10,7 @@ class AttachmentsHooks {
 	}
 
 	private static function msg($msg, $class=''){
-		return "* <big class='ext-attachments $class'>$msg</big>";
+		return "* <big class='mw-ext-attachments $class'>$msg</big>";
 	}
 
 	public static function renderAttach( Parser $parser, $page) {
@@ -70,7 +70,7 @@ class AttachmentsHooks {
 		]);
 
 		if (count($pages)+count($files) > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title])){
-			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
+			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>"); # class for external link icon
 			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
 
 			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
@@ -107,7 +107,8 @@ class AttachmentsHooks {
 	}
 
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
-		global $wgAttachmentsShowInNamespaces, $wgAttachmentsShowInViews;
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
 
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -119,10 +120,10 @@ class AttachmentsHooks {
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
 					'text'=> $sktemplate->msg('attachments') . " ($count)",
-					'href' => '#ext-attachments'
+					'href' => '#mw-ext-attachments'
 				]
 			] + array_slice($links['namespaces'], 1);
-		if ($wgAttachmentsShowInViews)
+		if ($attachmentsShowInViews)
 			$links['views'] = array_slice($links['views'], 0, 2) + [
 				'add_attachment' => [
 					'text'=> $sktemplate->msg('attachments-verb'),

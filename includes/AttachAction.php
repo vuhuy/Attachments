@@ -35,7 +35,9 @@ class SpecialAttach extends SpecialUpload {
 	}
 
 	function showUploadForm($form){
-		global $wgAttachmentsShowSubpageForm, $wgAttachmentsShowLinkForm;
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$attachmentsShowSubpageForm = $config->get( 'AttachmentsShowSubpageForm' );
+		$attachmentsShowLinkForm = $config->get( 'AttachmentsShowLinkForm' );
 		$out = $this->getOutput();
 
 		# hiding prefix using a hack to circumvent protected scope
@@ -52,10 +54,10 @@ class SpecialAttach extends SpecialUpload {
 		# the JavaScript doesn't know about the prefix we add
 		$out->addJsConfigVars(['wgAjaxUploadDestCheck'=>false]);
 
-		if ($wgAttachmentsShowSubpageForm)
+		if ($attachmentsShowSubpageForm)
 			(new SubpageForm($this->getContext()))->show();
 
-		if ($wgAttachmentsShowLinkForm)
+		if ($attachmentsShowLinkForm)
 			(new LinkForm($this->getContext()))->show();
 	}
 

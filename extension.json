@@ -1,28 +1,26 @@
 {
 	"name": "Attachments",
-	"type": "other",
-	"license-name": "MIT",
+	"version": "1.0.0",
 	"author": "Gittenburg",
-	"url": "https://www.mediawiki.org/wiki/Extension:Attachments",
-	"version": "0.1.0",
+	"url": "https://github.com/vuhuy/Attachments",
 	"descriptionmsg": "attachments-desc",
-	"config": {
-		"AttachmentsNamespaces": {
-			"_merge_strategy": "array_plus"
-		},
-		"AttachmentsChunkListByLetter": true,
-		"AttachmentsShowSubpageForm": true,
-		"AttachmentsShowLinkForm": true,
-		"AttachmentsShowInNamespaces": false,
-		"AttachmentsShowInViews": false
+	"license-name": "MIT",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.43.0"
+	},
+	"MessagesDirs": {
+		"Swiki": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"AttachmentsMagic": "includes/Attachments.i18n.php"
 	},
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",
 		"AttachmentsHooks": "includes/AttachmentsHooks.php",
 		"AttachAction": "includes/AttachAction.php"
-	},
-	"ExtensionMessagesFiles": {
-		"AttachmentsMagic": "includes/Attachments.i18n.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "AttachmentsHooks::onParserFirstCallInit",
@@ -36,9 +34,6 @@
 	},
 	"Actions": {
 		"attach": "AttachAction"
-	},
-	"MessagesDirs" : {
-		"Attachments": ["i18n"]
 	},
 	"TrackingCategories": [
 		"attachments-category-attached-files",
@@ -59,5 +54,34 @@
 		"localBasePath": "",
 		"remoteSkinPath": "Attachments"
 	},
-	"manifest_version": 1
+	"config": {
+		"AttachmentsNamespaces": {
+			"description": "The namespaces in which this extension should be enabled.",
+			"_merge_strategy": "array_plus"
+		},
+		"AttachmentsChunkListByLetter": {
+			"value": true,
+			"description": "Boolean, whether or not the attachment list should be chunked by the first letter of list items. Defaults to true."
+		},
+		"AttachmentsShowSubpageForm": {
+			"value": true,
+			"description": "Boolean, whether or not the subpage form should be shown. Defaults to true."
+		},
+		"AttachmentsShowLinkForm": {
+			"value": true,
+			"description": "Boolean, whether or not the external link form should be shown. Defaults to true."
+		},
+		"AttachmentsShowInNamespaces": {
+			"value": false,
+			"description": "Boolean, whether or not a button should be shown in the namespaces (page, discussion). Defaults to false."
+		},
+		"AttachmentsShowInViews": {
+			"value": false,
+			"description": "Boolean, whether or not a button should be shown in the views (read, edit source, view history). Defaults to false."
+		}
+	},
+	"ConfigRegistry": {
+		"attachments": "GlobalVarConfig::newInstance"
+	},
+	"manifest_version": 2
 }
