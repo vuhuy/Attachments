@@ -116,11 +116,12 @@ class AttachmentsHooks {
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
+		$attachmentsShowInNamespaces = $config->get( 'AttachmentsShowInNamespaces' );
 		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
 		$title = $sktemplate->getTitle();
 
 		$count = Attachments::countAttachments($title);
-		if ($count > 0 || $attachmentsShowEmptySection)
+		if ($attachmentsShowInNamespaces && ($count > 0 || $attachmentsShowEmptySection))
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
 					'text'=> $sktemplate->msg('attachments') . " ($count)",
