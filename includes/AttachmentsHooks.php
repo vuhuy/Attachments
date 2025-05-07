@@ -1,4 +1,6 @@
 <?php
+use MediaWiki\MediaWikiServices;
+
 class AttachmentsHooks {
 	public static function onParserFirstCallInit( Parser $parser ) {
 		$parser->setFunctionHook('attach', [ self::class, 'renderAttach' ]);
@@ -13,20 +15,21 @@ class AttachmentsHooks {
 
 	public static function renderAttach( Parser $parser, $page) {
 		$title = Title::newFromText($page);
-		$parser->getOutput()->setProperty(Attachments::getAttachPropname($title), $title);
+		$parser->getOutput()->setPageProperty(Attachments::getAttachPropname($title), json_encode($title));
 
-		$parser->getOutput()->setProperty(Attachments::PROP_ATTACH, true); # allow querying with API:Pageswithprop
+		$parser->getOutput()->setPageProperty(Attachments::PROP_ATTACH, true); # allow querying with API:Pageswithprop
 		if ($parser->getTitle()->inNamespace(NS_FILE))
 			# add category for $wgCountCategorizedImagesAsUsed
-			$parser->getOutput()->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
+			$parser->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
 
+		$parser->getLinkRenderer()->setForceArticlePath(true);
 		return [self::msg(wfMessage('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
 	public static function renderExtURL( Parser $parser, $url) {
 		$out = $parser->getOutput();
 		if ($out->getExtensionData('did-exturl')){
-			$parser->getOutput()->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
+			$parser->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
 			return self::msg(wfMessage('attachments-exturl-twice'), 'error');
 		}
 
@@ -34,11 +37,11 @@ class AttachmentsHooks {
 		$status = Attachments::validateURL($url);
 
 		if ($status === true){
-			$out->setProperty(Attachments::PROP_URL, $url);
+			$out->setPageProperty(Attachments::PROP_URL, $url);
 			return self::msg("&rarr; $url");
 		} else {
-			$out->setProperty(Attachments::PROP_URL, 'invalid');
-			$out->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
+			$out->setPageProperty(Attachments::PROP_URL, 'invalid');
+			$parser->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
 			return self::msg($status.' '.wfEscapeWikiText($url), 'error');
 		}
 	}
@@ -50,8 +53,8 @@ class AttachmentsHooks {
 	}
 
 	public static function renderAttachmentsIgnoreSubpages(Parser $parser, $prefix){
-		$value = Title::newFromText($parser->mStripState->unstripBoth($prefix))->getDBKey();
-		$parser->getOutput()->setProperty(Attachments::PROP_IGNORE_SUBPAGES, $value);
+		$value = Title::newFromText($parser->getStripState()->unstripBoth($prefix))->getDBKey();
+		$parser->getOutput()->setPageProperty(Attachments::PROP_IGNORE_SUBPAGES, json_encode($value));
 	}
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
@@ -66,7 +69,7 @@ class AttachmentsHooks {
 			'mediawiki.action.view.categoryPage.styles'
 		]);
 
-		if (count($pages)+count($files) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
+		if (count($pages)+count($files) > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title])){
 			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
 			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
 
@@ -89,7 +92,7 @@ class AttachmentsHooks {
 
 		$title = $tpl->getSkin()->getTitle();
 
-		if (Attachments::countAttachments($title) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
+		if (Attachments::countAttachments($title) > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title]))
 			$tpl->data['page_actions']['attachments'] = [
 				'itemtitle' => $tpl->msg('attachments'),
 				'href' => '#' . Sanitizer::escapeIdForAttribute($tpl->msg('attachments')),
@@ -103,14 +106,14 @@ class AttachmentsHooks {
 		];
 	}
 
-	public static function onSkinTemplateNavigation( SkinTemplate &$sktemplate, array &$links ) {
+	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
 
 		$title = $sktemplate->getTitle();
 
 		$count = Attachments::countAttachments($title);
-		if ($count > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
+		if ($count > 0 || MediaWikiServices::getInstance()->getHookContainer()->run('ShowEmptyAttachmentsSection', [clone $title]))
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
 					'text'=> $sktemplate->msg('attachments') . " ($count)",

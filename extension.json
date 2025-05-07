@@ -27,7 +27,7 @@
 		"BeforePageDisplay": "AttachmentsHooks::onBeforePageDisplay",
 		"MagicWordwgVariableIDs": "AttachmentsHooks::onMagicWordwgVariableIDs",
 		"ParserGetVariableValueSwitch": "AttachmentsHooks::onParserGetVariableValueSwitch",
-		"SkinTemplateNavigation": "AttachmentsHooks::onSkinTemplateNavigation",
+		"SkinTemplateNavigation::Universal": "AttachmentsHooks::onSkinTemplateNavigationUniversal",
 		"MinervaPreRender": "AttachmentsHooks::onMinervaPreRender",
 		"ListDefinedTags": "AttachmentsHooks::onListDefinedTags",
 		"ChangeTagsListActive": "AttachmentsHooks::onListDefinedTags"
@@ -44,7 +44,7 @@
 	],
 	"ResourceModules": {
 		"ext.attachments.minerva-icon": {
-			"class": "ResourceLoaderImageModule",
+			"class": "MediaWiki\\ResourceLoader\\ImageModule",
 			"selector": ".mw-ui-icon-minerva-{name}:before",
 			"useDataURI": false,
 			"images": {
