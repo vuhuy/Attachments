@@ -1,18 +1,10 @@
-# Attachments
+# Attachments for MediaWiki 1.42
 
 Attachments is a MediaWiki extension to attach files and external links to pages.
 
 > ❤️ **This extension was originally developed and maintained by [Gittenburg](https://github.com/Gittenburg).**
 >
 > Please review the new configuration options when migrating from the old repository. The default behavior has been changed to accommodate modern skins.
-
-> 🚀 **This repository follows the MediaWiki release branches compatibility policy.**
->
-> You can find dedicated branches for supported versions here:
->
-> - [Attachments for MediaWiki 1.43](https://github.com/vuhuy/Attachments/tree/REL1_43) (current LTS version)
-> - [Attachments for MediaWiki 1.42](https://github.com/vuhuy/Attachments/tree/REL1_42) (legacy stable version)
-> - [Attachments for MediaWiki 1.39](https://github.com/vuhuy/Attachments/tree/REL1_39) (legacy LTS version)
 
 ## Screenshots
 
@@ -44,7 +36,7 @@ Clone the extension into your MediaWiki `extensions` directory:
 
 ```bash
 cd extensions/
-git clone https://github.com/vuhuy/Attachments
+git clone --branch REL1_42 https://github.com/vuhuy/Attachments
 ```
 
 Then enable it by adding the following lines to your `LocalSettings.php`:
