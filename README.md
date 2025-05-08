@@ -16,7 +16,9 @@ Attachments is a MediaWiki extension to attach files and external links to pages
 
 ## Screenshots
 
-[![Attachments extension example](assets/attachments-example-thumb.png)](assets/attachments-example.png)
+Example of the Attachments extension. Left: default configuration. Right: with `$wgAttachmentsShowInNamespaces` and `$wgAttachmentsShowInViews` set to `true`.
+
+[![Attachments with default configuration](assets/attachments-default-thumb.png)](assets/attachments-default.png) [![Attachments with adjusted configuration](assets/attachments-config-thumb.png)](assets/attachments-config.png)
 
 ## Usage
 
