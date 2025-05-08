@@ -111,7 +111,7 @@ class SubpageForm extends HTMLForm {
 class LinkForm extends HTMLForm {
 	function __construct($context) {
 		parent::__construct([
-			'Subpage' => [
+			'Title' => [
 				'type' => 'text',
 				'required' => true,
 				'validation-callback' => [SubpageForm::class, 'validateSubpage'],
@@ -141,7 +141,7 @@ class LinkForm extends HTMLForm {
 		}
 		$page = MediaWikiServices::getInstance()
 			->getWikiPageFactory()
-			->newFromTitle($title->getSubpage(Title::capitalize($data['Subpage'])));
+			->newFromTitle($title->getSubpage(Title::capitalize($data['Title'])));
 		$status = $page->doUserEditContent(
 			new WikitextContent("{{#exturl:" . $data['URL'] . "}}"),
 			$this->getUser(),

@@ -10,7 +10,7 @@
 		"MediaWiki": ">= 1.43.0"
 	},
 	"MessagesDirs": {
-		"Swiki": [
+		"Attachments": [
 			"i18n"
 		]
 	},
@@ -84,7 +84,7 @@
 		},
 		"AttachmentsShowEmptySection": {
 			"value": false,
-			"description": "Boolean, whether or not to show certain elements when there are no attachments for a page. Defaults to true."
+			"description": "Boolean, whether or not to show certain elements when there are no attachments for a page. Defaults to false."
 		}
 	},
 	"ConfigRegistry": {

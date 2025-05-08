@@ -78,7 +78,7 @@ Optional configuration parameters:
 - `$wgAttachmentsShowInViews` (boolean)  
   Whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to `false`.
 - `$wgAttachmentsShowEmptySection` (boolean)  
-  Whether or not to show certain elements when there are no attachments for a page. Defaults to `true`.
+  Whether or not to show certain elements when there are no attachments for a page. Defaults to `false`.
 
 ## Credits
 
