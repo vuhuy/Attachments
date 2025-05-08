@@ -46,7 +46,7 @@ jobs:
           docker run -d --name mediawiki \
             --network "mw-net" \
             -p 8080:80 \
-            -v "${{ github.workspace }}:/var/www/html/extensions/Attachment" \
+            -v "${{ github.workspace }}:/var/www/html/extensions/Attachments" \
             mediawiki:$MW_VERSION
           sleep 5
 
