@@ -1,7 +1,11 @@
 {
 	"name": "Attachments",
 	"version": "1.0.0",
-	"author": "Gittenburg",
+	"author": [
+		"Gittenburg",
+		"Wryck",
+		"Vuhuy Luu"
+	],
 	"url": "https://github.com/vuhuy/Attachments",
 	"descriptionmsg": "attachments-desc",
 	"license-name": "MIT",
