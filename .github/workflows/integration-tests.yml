@@ -1,0 +1,72 @@
+name: Integration tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - REL1_*
+  pull_request:
+    branches:
+      - main
+      - REL1_*
+
+jobs:
+  selenium-test:
+    name: Selenium test
+    runs-on: ubuntu-24.04
+
+    env:
+      MW_VERSION: '1.43'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Start wiki
+        run: |
+          docker network create mw-net
+          docker run -d --name database \
+            --network "mw-net" \
+            -e MYSQL_DATABASE=mediawiki \
+            -e MYSQL_USER=mediawiki \
+            -e MYSQL_PASSWORD=mediawiki1234 \
+            -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes \
+            -p 3306:3306 \
+            mariadb:11.4
+          sleep 5
+          docker run -d --name mediawiki \
+            --network "mw-net" \
+            -p 8080:80 \
+            -v "${{ github.workspace }}:/var/www/html/extensions/Attachment" \
+            mediawiki:$MW_VERSION
+          sleep 5
+
+      - name: Configure wiki
+        run: |
+          cat tests/scripts/prepare.sh | docker exec -i mediawiki bash
+
+      - name: Run tests
+        run: |
+          pytest tests/pytest
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-screenshots
+          path: tests/screenshots
+          if-no-files-found: ignore
+
+      - name: Stop Docker
+        if: always()
+        run: |
+          docker stop mediawiki >/dev/null 2>&1 || true
+          docker stop mariadb >/dev/null 2>&1 || true
