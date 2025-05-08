@@ -1,7 +1,7 @@
 {
 	"attachments": "Attachments",
 	"attachments-desc": "Attach files and links to pages.",
-	"attachments-verb": "Add attachment",
+	"attachments-verb": "Attach",
 
 	"attachments-add-new": "This page contains $1 attachment(s). $2.",
     "attachments-add-new-link": "Add a new attachment",

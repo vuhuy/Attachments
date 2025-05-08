@@ -67,8 +67,8 @@ def test_hook_page(browser, base_url):
         browser.find_element(By.CSS_SELECTOR, "a[title='Attachments - By.png']")
         browser.find_element(By.CSS_SELECTOR, "a[title='Attachments/My Sub Page']")
         browser.find_element(By.CSS_SELECTOR, "a[href='https://google.com']")
-        browser.find_element(By.CSS_SELECTOR, ".vector-page-toolbar a[href='#mw-ext-attachments']")
-        browser.find_element(By.CSS_SELECTOR, ".vector-page-toolbar a[href='/index.php?title=Attachments&action=attach']")
+        browser.find_element(By.CSS_SELECTOR, "#left-navigation a[href='#mw-ext-attachments']")
+        browser.find_element(By.CSS_SELECTOR, "#right-navigation a[href='/index.php?title=Attachments&action=attach']")
 
         save_screenshot(browser, f'Hook-Attachments-Page')
 

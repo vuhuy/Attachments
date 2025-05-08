@@ -1,7 +1,7 @@
 {
 	"attachments": "Pièces jointes",
 	"attachments-desc": "Joignez des fichiers et des liens aux pages.",
-	"attachments-verb": "Ajouter une pièce jointe",
+	"attachments-verb": "Joindre",
 
 	"attachments-add-new": "Cette page contient $1 pièce(s) jointe(s). $2.",
 	"attachments-add-new-link": "Ajoutez une nouvelle pièce jointe",

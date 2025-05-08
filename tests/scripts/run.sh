@@ -8,7 +8,7 @@
 #
 # Examples:
 #   ./run_test.sh
-#   ./run_test.sh 1.43
+#   ./run_test.sh 1.39
 
 # Set working directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -28,8 +28,8 @@ cleanup() {
 
 trap cleanup EXIT
 
-# Choose MediaWiki version (default to 1.43)
-MW_VERSION="${1:-1.43}"
+# Choose MediaWiki version (default to 1.39)
+MW_VERSION="${1:-1.39}"
 echo -e "\n\n==> Using MediaWiki version: $MW_VERSION"
 
 # Setup virtual env

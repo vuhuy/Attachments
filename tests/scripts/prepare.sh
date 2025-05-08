@@ -1,4 +1,4 @@
-php maintenance/run.php install.php \
+php maintenance/install.php \
     --dbname=mediawiki \
     --dbserver=database \
     --installdbuser=mediawiki \
@@ -29,5 +29,5 @@ echo "\$wgGroupPermissions['*']['upload'] = true;" >> LocalSettings.php &&
 echo "\$wgGroupPermissions['*']['reupload'] = true;" >> LocalSettings.php &&
 echo "\$wgRateLimits = [];" >> LocalSettings.php &&
 apachectl graceful &&
-php maintenance/run.php edit.php --conf LocalSettings.php Control < extensions/Attachments/tests/data/Control.html
-php maintenance/run.php edit.php --conf LocalSettings.php Attachments < extensions/Attachments/tests/data/Control.html
+php maintenance/edit.php --conf LocalSettings.php Control < extensions/Attachments/tests/data/Control.html
+php maintenance/edit.php --conf LocalSettings.php Attachments < extensions/Attachments/tests/data/Control.html

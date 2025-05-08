@@ -1,7 +1,7 @@
 {
 	"attachments": "Anhänge",
 	"attachments-desc": "Hänge Dateien und Links an Seiten an.",
-	"attachments-verb": "Anhang hinzufügen",
+	"attachments-verb": "Anhängen",
 
 	"attachments-add-new": "Diese Seite enthält $1 Anhang/Anhänge. $2.",
 	"attachments-add-new-link": "Fügen Sie einen neuen Anhang hinzu",

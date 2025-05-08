@@ -11,7 +11,7 @@
 	"license-name": "MIT",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.43.0"
+		"MediaWiki": ">= 1.39.0"
 	},
 	"MessagesDirs": {
 		"Attachments": [
@@ -79,16 +79,16 @@
 			"description": "Boolean, whether or not a link to the attachments should be shown in the namespaces (page, discussion). Defaults to true."
 		},
 		"AttachmentsShowInNamespaces": {
-			"value": false,
-			"description": "Boolean, whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to false."
+			"value": true,
+			"description": "Boolean, whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to true."
 		},
 		"AttachmentsShowInViews": {
-			"value": false,
-			"description": "Boolean, whether or not a button should be shown in the views (read, edit source, view history). Defaults to false."
+			"value": true,
+			"description": "Boolean, whether or not a button should be shown in the views (read, edit source, view history). Defaults to true."
 		},
 		"AttachmentsShowEmptySection": {
-			"value": false,
-			"description": "Boolean, whether or not to show certain elements when there are no attachments for a page. Defaults to false."
+			"value": true,
+			"description": "Boolean, whether or not to show certain elements when there are no attachments for a page. Defaults to true."
 		}
 	},
 	"ConfigRegistry": {

@@ -46,8 +46,7 @@ class Attachments {
 	}
 
 	public static function getFiles($title, $count = FALSE){
-		$dbProvider = MediaWikiServices::getInstance()->getConnectionProvider();
-		$dbr = $dbProvider->getReplicaDatabase();
+		$dbr = wfGetDB(DB_REPLICA);
 		$res = $dbr->select(
 			['page_props', 'page'],
 			$count ? ['count'=>'count(*)'] : ['page_title'],
@@ -67,8 +66,7 @@ class Attachments {
 	}
 
 	public static function getPages(Title $title, $count = FALSE){
-		$dbProvider = MediaWikiServices::getInstance()->getConnectionProvider();
-		$dbr = $dbProvider->getReplicaDatabase();
+		$dbr = wfGetDB(DB_REPLICA);
 		$subpageCond = [
 			'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
 			'page_namespace'=>$title->getNamespace()

@@ -1,24 +1,8 @@
-# Attachments
+# Attachments for MediaWiki 1.39
 
 Attachments is a MediaWiki extension to attach files and external links to pages.
 
 > ❤️ **This extension was originally developed and maintained by [Gittenburg](https://github.com/Gittenburg).**
->
-> Please review the new configuration options when migrating from the old repository. The default behavior has been changed to accommodate modern skins.
-
-> 🚀 **This repository follows the MediaWiki release branches compatibility policy.**
->
-> You can find dedicated branches for supported versions here:
->
-> - [Attachments for MediaWiki 1.43](https://github.com/vuhuy/Attachments/tree/REL1_43) (current LTS version)
-> - [Attachments for MediaWiki 1.42](https://github.com/vuhuy/Attachments/tree/REL1_42) (legacy stable version)
-> - [Attachments for MediaWiki 1.39](https://github.com/vuhuy/Attachments/tree/REL1_39) (legacy LTS version)
-
-## Screenshots
-
-Example of the Attachments extension. Left: default configuration. Right: with `$wgAttachmentsShowInNamespaces` and `$wgAttachmentsShowInViews` set to `true`.
-
-[![Attachments with default configuration](assets/attachments-default-thumb.png)](assets/attachments-default.png) [![Attachments with adjusted configuration](assets/attachments-config-thumb.png)](assets/attachments-config.png)
 
 ## Usage
 
@@ -44,16 +28,16 @@ Clone the extension into your MediaWiki `extensions` directory:
 
 ```bash
 cd extensions/
-git clone https://github.com/vuhuy/Attachments
+git clone --branch REL1_39 https://github.com/vuhuy/Attachments
 ```
 
-Then enable it by adding the following lines to your `LocalSettings.php`:
+Enable the extension by adding the following lines to your `LocalSettings.php`:
 
 ```php
 wfLoadExtension( 'Attachments' );
 ```
 
-This extension is enabled for the main namespace by default. You might want to enable the extension for other namespaces, e.g.:
+Then enable the extension for the desired namespaces, e.g.:
 
 ```php
 $wgAttachmentsNamespaces[NS_MAIN] = true;
@@ -76,11 +60,11 @@ Optional configuration parameters:
 - `$wgAttachmentsShowLinkForm` (boolean)  
   Whether or not the external link form should be shown. Defaults to `true`.
 - `$wgAttachmentsShowInNamespaces` (boolean)  
-  Whether or not a link to the attachments should be shown in the namespaces (page, discussion). Defaults to `false`.
+  Whether or not a link to the attachments should be shown in the namespaces (page, discussion). Defaults to `true`.
 - `$wgAttachmentsShowInViews` (boolean)  
-  Whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to `false`.
+  Whether or not an 'add attachments' link should be shown in the views (read, edit source, view history). Defaults to `true`.
 - `$wgAttachmentsShowEmptySection` (boolean)  
-  Whether or not to show certain elements when there are no attachments for a page. Defaults to `false`.
+  Whether or not to show certain elements when there are no attachments for a page. Defaults to `true`.
 
 ## Credits
 
