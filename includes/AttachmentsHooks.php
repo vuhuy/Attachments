@@ -81,6 +81,24 @@ class AttachmentsHooks {
 			$out->addModules('ext.attachments.minerva-icon');
 	}
 
+	public static function onMobileMenu( &$menu, $skin ) {
+		$skin = MobileContext::singleton()->getSkin();
+		if (!Attachments::isViewingApplicablePage($skin) || Attachments::hasExtURL($skin->getTitle()))
+			return;
+
+		$title = $skin->getTitle();
+		$menu->insert(
+			new \MediaWiki\Minerva\Menu\MenuEntry(
+				'add-attachment',
+				$skin->msg('attachments-verb'),
+				$title->getLocalURL('action=attach'),
+				[ 'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach' ]
+			)
+		);
+		return true;
+	}
+
+
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -90,15 +108,6 @@ class AttachmentsHooks {
 		$attachmentsShowInNamespaces = $config->get( 'AttachmentsShowInNamespaces' );
 		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
 		$title = $sktemplate->getTitle();
-
-		if ($sktemplate->skinname == 'minerva') {
-			$links['actions']['add_attachment'] = [
-				'text'=> $sktemplate->msg('attachments-verb'),
-				'href' => $title->getLocalURL('action=attach'),
-				'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
-			];
-			return true;
-		}
 
 		$count = Attachments::countAttachments($title);
 		if ($attachmentsShowInNamespaces && ($count > 0 || $attachmentsShowEmptySection))
