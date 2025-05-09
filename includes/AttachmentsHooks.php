@@ -72,44 +72,15 @@ class AttachmentsHooks {
 		]);
 
 		if (count($pages)+count($files) > 0 || $attachmentsShowEmptySection){
-			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>"); # class for external link icon
+			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>");
 			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
-
-			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
-				# hack to make section collapsible (removing </div>)
-				$out->mBodytext = substr($out->mBodytext, 0, -6);
-
 			$out->addHTML($html);
-			if ($skin->getSkinName() == 'minerva')
-				$out->addHTML('</div>');
 			$out->addHTML("</div>");
 		}
 		if ($skin->getSkinName() == 'minerva')
 			$out->addModules('ext.attachments.minerva-icon');
 	}
-
-	public static function onMinervaPreRender( MinervaTemplate $tpl ) {
-		if (!Attachments::isViewingApplicablePage($tpl->getSkin()) || Attachments::hasExtURL($tpl->getSkin()->getTitle()))
-			return;
-
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
-		$title = $tpl->getSkin()->getTitle();
-
-		if (Attachments::countAttachments($title) > 0 || $attachmentsShowEmptySection)
-			$tpl->data['page_actions']['attachments'] = [
-				'itemtitle' => $tpl->msg('attachments'),
-				'href' => '#' . Sanitizer::escapeIdForAttribute($tpl->msg('attachments')),
-				'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'
-			];
-
-		$tpl->data['page_actions']['attach'] = [
-			'itemtitle' => $tpl->msg('attachments-add-new'),
-			'href' => $title->getLocalURL('action=attach'),
-			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
-		];
-	}
-
+	
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -131,9 +102,10 @@ class AttachmentsHooks {
 		if ($attachmentsShowInViews)
 			$links['views'] = array_slice($links['views'], 0, 2) + [
 				'add_attachment' => [
-					'text'=> $sktemplate->msg('attachments-verb'),
+					'text'=> $sktemplate->msg('attachments-verb')->text(),
 					'href' => $title->getLocalURL('action=attach'),
-					'class' => ''
+					'class' => '',
+					'primary' => true
 				]
 			] + array_slice($links['views'], 2);
 		$links['actions']['add_attachment'] = [
@@ -141,6 +113,7 @@ class AttachmentsHooks {
 			'href' => $title->getLocalURL(['action' => 'attach']),
 			'class' => ''
 		];
+
 		return true;
 	}
 

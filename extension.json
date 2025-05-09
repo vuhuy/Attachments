@@ -1,6 +1,6 @@
 {
 	"name": "Attachments",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": [
 		"Gittenburg",
 		"Wryck",
@@ -32,7 +32,6 @@
 		"MagicWordwgVariableIDs": "AttachmentsHooks::onMagicWordwgVariableIDs",
 		"ParserGetVariableValueSwitch": "AttachmentsHooks::onParserGetVariableValueSwitch",
 		"SkinTemplateNavigation::Universal": "AttachmentsHooks::onSkinTemplateNavigationUniversal",
-		"MinervaPreRender": "AttachmentsHooks::onMinervaPreRender",
 		"ListDefinedTags": "AttachmentsHooks::onListDefinedTags",
 		"ChangeTagsListActive": "AttachmentsHooks::onListDefinedTags"
 	},
