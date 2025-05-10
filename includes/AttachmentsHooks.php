@@ -102,7 +102,7 @@ class AttachmentsHooks {
 		if ($attachmentsShowInViews)
 			$links['views'] = array_slice($links['views'], 0, 2) + [
 				'add_attachment' => [
-					'text'=> $sktemplate->msg('attachments-verb'),
+					'text'=> $sktemplate->msg('attachments-verb')->text(),
 					'href' => $title->getLocalURL('action=attach'),
 					'class' => ''
 				]
