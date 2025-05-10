@@ -113,7 +113,7 @@ class AttachmentsHooks {
 			'class' => ''
 		];
 
-		die(print_r($links['views'],true));
+		dd($$links['views']);
 		return true;
 	}
 
