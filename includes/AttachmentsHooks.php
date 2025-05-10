@@ -104,7 +104,8 @@ class AttachmentsHooks {
 				'add_attachment' => [
 					'text'=> $sktemplate->msg('attachments-verb')->text(),
 					'href' => $title->getLocalURL('action=attach'),
-					'class' => ''
+					'class' => '',
+					'primary' => true
 				]
 			] + array_slice($links['views'], 2);
 		$links['actions']['add_attachment'] = [
