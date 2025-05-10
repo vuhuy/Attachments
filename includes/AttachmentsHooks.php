@@ -81,26 +81,6 @@ class AttachmentsHooks {
 			$out->addModules('ext.attachments.minerva-icon');
 	}
 
-	public static function onMobileMenu( &$menu, $skin ) {
-		$skin = MobileContext::singleton()->getSkin();
-		echo 'test1';
-		if (!Attachments::isViewingApplicablePage($skin) || Attachments::hasExtURL($skin->getTitle()))
-			return;
-
-		die('testest');
-		$title = $skin->getTitle();
-		$menu->insert(
-			new \MediaWiki\Minerva\Menu\MenuEntry(
-				'add-attachment',
-				$skin->msg('attachments-verb'),
-				$title->getLocalURL('action=attach'),
-				[ 'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach' ]
-			)
-		);
-		return true;
-	}
-
-
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -132,6 +112,8 @@ class AttachmentsHooks {
 			'href' => $title->getLocalURL(['action' => 'attach']),
 			'class' => ''
 		];
+
+		die(print_r($links,true));
 		return true;
 	}
 

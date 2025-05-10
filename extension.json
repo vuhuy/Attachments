@@ -32,7 +32,6 @@
 		"MagicWordwgVariableIDs": "AttachmentsHooks::onMagicWordwgVariableIDs",
 		"ParserGetVariableValueSwitch": "AttachmentsHooks::onParserGetVariableValueSwitch",
 		"SkinTemplateNavigation::Universal": "AttachmentsHooks::onSkinTemplateNavigationUniversal",
-		"MobileMenu": "AttachmentsHooks::onMobileMenu",
 		"ListDefinedTags": "AttachmentsHooks::onListDefinedTags",
 		"ChangeTagsListActive": "AttachmentsHooks::onListDefinedTags"
 	},
