@@ -81,6 +81,13 @@ class AttachmentsHooks {
 			$out->addModules('ext.attachments.minerva-icon');
 	}
 
+	public static function onSkinMinervaOptionsInit( SkinTemplate $skin, SkinOptions $skinOptions ) {
+		var_dump($skin);
+		var_dump($skinOptions);
+		die();
+		return true;
+	}
+	
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -114,7 +121,6 @@ class AttachmentsHooks {
 			'class' => ''
 		];
 
-		var_dump($links);
 		return true;
 	}
 
