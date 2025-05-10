@@ -83,9 +83,11 @@ class AttachmentsHooks {
 
 	public static function onMobileMenu( &$menu, $skin ) {
 		$skin = MobileContext::singleton()->getSkin();
+		echo 'test1';
 		if (!Attachments::isViewingApplicablePage($skin) || Attachments::hasExtURL($skin->getTitle()))
 			return;
 
+		die('testest');
 		$title = $skin->getTitle();
 		$menu->insert(
 			new \MediaWiki\Minerva\Menu\MenuEntry(
