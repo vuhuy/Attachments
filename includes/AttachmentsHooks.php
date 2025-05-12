@@ -16,8 +16,7 @@ class AttachmentsHooks {
 	public static function renderAttach( Parser $parser, $page) {
 		$title = Title::newFromText($page);
 		$parser->getOutput()->setPageProperty(Attachments::getAttachPropname($title), json_encode($title));
-
-		$parser->getOutput()->setPageProperty(Attachments::PROP_ATTACH, true); # allow querying with API:Pageswithprop
+		$parser->getOutput()->setPageProperty(Attachments::PROP_ATTACH, "true"); # allow querying with API:Pageswithprop
 		if ($parser->getTitle()->inNamespace(NS_FILE))
 			# add category for $wgCountCategorizedImagesAsUsed
 			$parser->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
