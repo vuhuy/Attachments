@@ -45,7 +45,7 @@
 	"ResourceModules": {
 		"ext.attachments.minerva-icon": {
 			"class": "MediaWiki\\ResourceLoader\\ImageModule",
-			"selector": ".mw-ui-icon-minerva-{name}",
+			"selector": ".mw-ui-icon-minerva-{name}::before",
 			"useDataURI": false,
 			"images": {
 				"attachments": "resources/folder.svg",
