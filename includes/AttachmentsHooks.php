@@ -16,8 +16,7 @@ class AttachmentsHooks {
 	public static function renderAttach( Parser $parser, $page) {
 		$title = Title::newFromText($page);
 		$parser->getOutput()->setPageProperty(Attachments::getAttachPropname($title), json_encode($title));
-
-		$parser->getOutput()->setPageProperty(Attachments::PROP_ATTACH, true); # allow querying with API:Pageswithprop
+		$parser->getOutput()->setPageProperty(Attachments::PROP_ATTACH, "true"); # allow querying with API:Pageswithprop
 		if ($parser->getTitle()->inNamespace(NS_FILE))
 			# add category for $wgCountCategorizedImagesAsUsed
 			$parser->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
@@ -72,44 +71,27 @@ class AttachmentsHooks {
 		]);
 
 		if (count($pages)+count($files) > 0 || $attachmentsShowEmptySection){
-			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>"); # class for external link icon
+			$out->addHTML("<div id=mw-ext-attachments class=mw-parser-output>");
 			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
-
-			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
-				# hack to make section collapsible (removing </div>)
-				$out->mBodytext = substr($out->mBodytext, 0, -6);
-
 			$out->addHTML($html);
-			if ($skin->getSkinName() == 'minerva')
-				$out->addHTML('</div>');
 			$out->addHTML("</div>");
 		}
-		if ($skin->getSkinName() == 'minerva')
+		if ($skin->getSkinName() == 'minerva') {
 			$out->addModules('ext.attachments.minerva-icon');
-	}
 
-	public static function onMinervaPreRender( MinervaTemplate $tpl ) {
-		if (!Attachments::isViewingApplicablePage($tpl->getSkin()) || Attachments::hasExtURL($tpl->getSkin()->getTitle()))
-			return;
-
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
-		$title = $tpl->getSkin()->getTitle();
-
-		if (Attachments::countAttachments($title) > 0 || $attachmentsShowEmptySection)
-			$tpl->data['page_actions']['attachments'] = [
-				'itemtitle' => $tpl->msg('attachments'),
-				'href' => '#' . Sanitizer::escapeIdForAttribute($tpl->msg('attachments')),
-				'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'
+			// Minerva Neue workaround.
+			// They removed all hooks that could interact with their menu builder, and $links['views'] isn't used (yet).
+			// Delegate the rendering of the 'add attachment' button to JS.
+			$data = [
+				'useWorkaround' => true,
+				'text' => $skin->msg('attachments-verb')->text(),
+				'href' => $title->getLocalURL('action=attach'),
 			];
-
-		$tpl->data['page_actions']['attach'] = [
-			'itemtitle' => $tpl->msg('attachments-add-new'),
-			'href' => $title->getLocalURL('action=attach'),
-			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
-		];
+			$skin->getOutput()->addJsConfigVars('attachmentsMinervaWorkaround', $data);
+			$skin->getOutput()->addModules('ext.attachments.minerva-workaround');
+		}
 	}
-
+	
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
 		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
 			return;
@@ -131,9 +113,10 @@ class AttachmentsHooks {
 		if ($attachmentsShowInViews)
 			$links['views'] = array_slice($links['views'], 0, 2) + [
 				'add_attachment' => [
-					'text'=> $sktemplate->msg('attachments-verb'),
+					'text'=> $sktemplate->msg('attachments-verb')->text(),
 					'href' => $title->getLocalURL('action=attach'),
-					'class' => ''
+					'class' => '',
+					'primary' => true
 				]
 			] + array_slice($links['views'], 2);
 		$links['actions']['add_attachment'] = [
