@@ -76,8 +76,20 @@ class AttachmentsHooks {
 			$out->addHTML($html);
 			$out->addHTML("</div>");
 		}
-		if ($skin->getSkinName() == 'minerva')
+		if ($skin->getSkinName() == 'minerva') {
 			$out->addModules('ext.attachments.minerva-icon');
+
+			// Minerva Neue workaround.
+			// They removed all hooks that could interact with their menu builder, and $links['views'] isn't used (yet).
+			// Delegate the rendering of the 'add attachment' button to JS.
+			$data = [
+				'useWorkaround' => true,
+				'text' => $skin->msg('attachments-verb')->text(),
+				'href' => $title->getLocalURL('action=attach'),
+			];
+			$skin->getOutput()->addJsConfigVars('attachmentsMinervaWorkaround', $data);
+			$skin->getOutput()->addModules('ext.attachments.minerva-workaround');
+		}
 	}
 	
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
@@ -112,7 +124,6 @@ class AttachmentsHooks {
 			'href' => $title->getLocalURL(['action' => 'attach']),
 			'class' => ''
 		];
-
 		return true;
 	}
 

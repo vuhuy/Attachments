@@ -45,12 +45,15 @@
 	"ResourceModules": {
 		"ext.attachments.minerva-icon": {
 			"class": "MediaWiki\\ResourceLoader\\ImageModule",
-			"selector": ".mw-ui-icon-minerva-{name}:before",
+			"selector": ".mw-ui-icon-minerva-{name}",
 			"useDataURI": false,
 			"images": {
 				"attachments": "resources/folder.svg",
 				"attach": "resources/file-plus.svg"
 			}
+		},
+		"ext.attachments.minerva-workaround": {
+			"scripts": [ "modules/ext.attachments.minerva-workaround.js" ]
 		}
 	},
 	"ResourceFileModulePaths": {
