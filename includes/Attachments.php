@@ -1,4 +1,7 @@
 <?php
+use MediaWiki\Category\CategoryViewer;
+use MediaWiki\Linker\Linker;
+use MediaWiki\Title\Title;
 use MediaWiki\MediaWikiServices;
 
 class Attachments {

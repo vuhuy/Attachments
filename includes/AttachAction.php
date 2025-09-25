@@ -1,4 +1,5 @@
 <?php
+use MediaWiki\Title\Title;
 use MediaWiki\MediaWikiServices;
 
 class AttachAction extends Action {
