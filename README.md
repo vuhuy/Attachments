@@ -10,8 +10,8 @@ Attachments is a MediaWiki extension to attach files and external links to pages
 >
 > You can find dedicated branches for supported versions here:
 >
-> - [Attachments for MediaWiki 1.43](https://github.com/vuhuy/Attachments/tree/REL1_43) (current LTS version)
-> - [Attachments for MediaWiki 1.42](https://github.com/vuhuy/Attachments/tree/REL1_42) (legacy stable version)
+> - [Attachments for MediaWiki 1.44](https://github.com/vuhuy/Attachments/tree/REL1_44) (legacy stable version)
+> - [Attachments for MediaWiki 1.43](https://github.com/vuhuy/Attachments/tree/REL1_43) (legacy stable and current LTS version)
 > - [Attachments for MediaWiki 1.39](https://github.com/vuhuy/Attachments/tree/REL1_39) (legacy LTS version)
 
 ## Screenshots
