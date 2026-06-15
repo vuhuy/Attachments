@@ -12,6 +12,9 @@ class AttachAction extends Action {
 }
 
 class SpecialAttach extends SpecialUpload {
+	public $prefix = '';
+	public $title = '';
+
 	function execute( $title ) {
 		$req = $this->getRequest();
 
