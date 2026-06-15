@@ -14,19 +14,19 @@ on:
 jobs:
   selenium-test:
     name: Selenium test
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     env:
-      MW_VERSION: '1.44'
+      MW_VERSION: '1.45'
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -59,7 +59,7 @@ jobs:
           pytest tests/pytest
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: selenium-screenshots
           path: tests/screenshots
