@@ -4,11 +4,11 @@
 # Requires docker, python 3.13, and python3-venv.
 #
 # Usage:
-#   ./run_test.sh [version]
+#   ./run.sh [version]
 #
 # Examples:
-#   ./run_test.sh
-#   ./run_test.sh 1.44
+#   ./run.sh
+#   ./run.sh 1.45
 
 # Set working directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -28,8 +28,8 @@ cleanup() {
 
 trap cleanup EXIT
 
-# Choose MediaWiki version (default to 1.44)
-MW_VERSION="${1:-1.44}"
+# Choose MediaWiki version (default to 1.45)
+MW_VERSION="${1:-1.45}"
 echo -e "\n\n==> Using MediaWiki version: $MW_VERSION"
 
 # Setup virtual env
