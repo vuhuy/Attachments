@@ -93,9 +93,10 @@ class AttachmentsHooks {
 		}
 	}
 	
-	public static function onSkinTemplateNavigationUniversal( SkinTemplate &$sktemplate, array &$links ) {
-		if (!Attachments::isViewingApplicablePage($sktemplate) || Attachments::hasExtURL($sktemplate->getTitle()))
+	public static function onSkinTemplateNavigationUniversal( SkinTemplate $sktemplate, array &$links ) {
+		if ( !Attachments::isViewingApplicablePage( $sktemplate ) || Attachments::hasExtURL( $sktemplate->getTitle() ) ) {
 			return;
+		}
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$attachmentsShowEmptySection = $config->get( 'AttachmentsShowEmptySection' );
@@ -103,29 +104,39 @@ class AttachmentsHooks {
 		$attachmentsShowInViews = $config->get( 'AttachmentsShowInViews' );
 		$title = $sktemplate->getTitle();
 
-		$count = Attachments::countAttachments($title);
-		if ($attachmentsShowInNamespaces && ($count > 0 || $attachmentsShowEmptySection))
-			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
+		$count = Attachments::countAttachments( $title );
+		if ( $attachmentsShowInNamespaces && ( $count > 0 || $attachmentsShowEmptySection ) ) {
+			$tab = [
 				'attachments' => [
-					'text'=> $sktemplate->msg('attachments') . " ($count)",
+					'text' => $sktemplate->msg( 'attachments' )->text() . " ($count)",
 					'href' => '#mw-ext-attachments'
 				]
-			] + array_slice($links['namespaces'], 1);
-		if ($attachmentsShowInViews)
-			$links['views'] = array_slice($links['views'], 0, 2) + [
+			];
+
+			foreach ( [ 'associated-pages', 'namespaces' ] as $menu ) {
+				if ( isset( $links[$menu] ) ) {
+					$links[$menu] = array_slice( $links[$menu], 0, 1, true ) + $tab
+						+ array_slice( $links[$menu], 1, null, true );
+				}
+			}
+		}
+		
+		if ( $attachmentsShowInViews && isset( $links['views'] ) ) {
+			$links['views'] = array_slice( $links['views'], 0, 2, true ) + [
 				'add_attachment' => [
-					'text'=> $sktemplate->msg('attachments-verb')->text(),
-					'href' => $title->getLocalURL('action=attach'),
+					'text' => $sktemplate->msg( 'attachments-verb' )->text(),
+					'href' => $title->getLocalURL( 'action=attach' ),
 					'class' => '',
 					'primary' => true
 				]
-			] + array_slice($links['views'], 2);
+			] + array_slice( $links['views'], 2, null, true );
+		}
+
 		$links['actions']['add_attachment'] = [
-			'text' => $sktemplate->msg('attachments-verb')->text(),
-			'href' => $title->getLocalURL(['action' => 'attach']),
+			'text' => $sktemplate->msg( 'attachments-verb' )->text(),
+			'href' => $title->getLocalURL( [ 'action' => 'attach' ] ),
 			'class' => ''
 		];
-		return true;
 	}
 
 	public static function onListDefinedTags( &$tags ) {
